@@ -37,3 +37,10 @@ Distance is measured over Unicode **code points**, not grapheme clusters.
 `levenshtein_distance("\u00e9", "e\u0301")` returns 2, not 0, even though both
 render as the same glyph. Normalize your strings beforehand if you want
 glyph-level comparison.
+
+## Performance
+
+The window keeps a bounded buffer, so `push` is constant time and memory does not
+grow with the length of the stream. `peak` and `trough` are linear in the window
+size, which is the trade that keeps `push` cheap.
+
